@@ -1,22 +1,22 @@
-import moment from "moment";
+import datefns from "date-fns";
 import { DATE_UNIT_TYPES } from "./constants";
 
 export function getCurrentYear() {
-  return moment().year();
+  return datefns.getYear(new Date());
 }
 
 export function add(date: Date, number: number, type = DATE_UNIT_TYPES.DAYS) {
-  return moment(date).add(number, type).toDate();
+  return datefns.add(date, { [type]: number });
 }
 
 export function isWithinRange(date: Date, from: Date, to: Date) {
-  return moment(date).isBetween(from, to);
+  return datefns.isWithinInterval(date, { start: from, end: to });
 }
 
 export function isDateBefore(date: Date, compareDate: Date) {
-  return moment(date).isBefore(compareDate);
+  return datefns.isBefore(date, compareDate);
 }
 
 export function isSameDay(date: Date, compareDate: Date) {
-  return moment(date).isSame(compareDate);
+  return datefns.isSameDay(date, compareDate);
 }
