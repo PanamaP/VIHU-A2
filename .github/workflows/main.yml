@@ -1,0 +1,36 @@
+name: CI/CD Workflow
+on: push
+
+jobs:
+  test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4.1.1
+        
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 18
+          
+      - name: Npm install
+        run: npm ci
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+        
+      - name: Run tests
+        run: npm run coverage
+
+      - name: Publish Coverage Report
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: coverage-report
+          path: coverage/
+
+      - name: Publish Package
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: npm publish
+        
