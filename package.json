@@ -6,7 +6,8 @@
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "lint --fix": "eslint . --ext .ts --fix"
   },
   "keywords": [],
   "author": "",
