@@ -9,5 +9,9 @@
         "sourceType": "module"
     },
     "rules": {
-    }
+        "esaCustom/camelCaseFunctions": "error",
+        "esaCustom/noMomentLibrary": "error",
+        "esaCustom/noConsoleLog": "error"
+    },
+    "plugins": ["esaCustom"]
 }
