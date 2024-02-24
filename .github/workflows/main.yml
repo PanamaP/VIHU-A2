@@ -5,6 +5,9 @@ jobs:
   test:
     name: Build & Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     
     steps:
       - name: Checkout Repo
@@ -31,7 +34,6 @@ jobs:
           path: coverage/
 
       - name: Publish Package
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

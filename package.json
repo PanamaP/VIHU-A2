@@ -11,6 +11,7 @@
   "keywords": [],
   "author": "",
   "repository": {
+    "type": "git",
     "url": "https://github.com/panamap/assignment-2-testing.git"
   },
   "license": "ISC",
