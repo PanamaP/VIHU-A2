@@ -13,11 +13,11 @@ module.exports = {
   },
 
   create(context) {
-    const camelCaseMatching = /^[a-z][a-zA-Z]*$/
-    const msg = "Function name '{{ name }}' is not in camel case."
+    const camelCaseMatching = /^[a-z][a-zA-Z]*$/;
+    const msg = "Function name '{{ name }}' is not in camel case.";
 
     function isCamelCase(string) {
-      return camelCaseMatching.test(string)
+      return camelCaseMatching.test(string);
     }
 
     function toCamelCase(string) {
@@ -38,16 +38,19 @@ module.exports = {
             data: {
               name: functionName,
             },
-            fix(fixer){
-              const newFunctionName = toCamelCase(functionName)
-              return fixer.replaceText(node.id, newFunctionName)
-            }
+            fix(fixer) {
+              const newFunctionName = toCamelCase(functionName);
+              return fixer.replaceText(node.id, newFunctionName);
+            },
           });
         }
       },
       // const myFunc = function() {} or const myFunc = () => {}
       VariableDeclarator(node) {
-        if (node.init && node.init.type === "FunctionExpression" || node.init && node.init.type === "ArrowFunctionExpression") {
+        if (
+          (node.init && node.init.type === "FunctionExpression") ||
+          (node.init && node.init.type === "ArrowFunctionExpression")
+        ) {
           const variableName = node.id.name;
 
           if (!isCamelCase(variableName)) {
@@ -57,10 +60,10 @@ module.exports = {
               data: {
                 name: variableName,
               },
-              fix(fixer){
-                const newFunctionName = toCamelCase(variableName)
-                return fixer.replaceText(node.id, newFunctionName)
-              }
+              fix(fixer) {
+                const newFunctionName = toCamelCase(variableName);
+                return fixer.replaceText(node.id, newFunctionName);
+              },
             });
           }
         }
